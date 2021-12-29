@@ -1,0 +1,36 @@
+.cntr{    
+    display: flex;
+    align-items: center;
+    min-height: 75vh;
+}
+form{
+    margin: 15px auto;
+    min-width: 300px;
+    max-width: 480px;
+    text-align: start;
+    border: 1px solid lightgray;
+    padding: 15px;
+}
+form input{
+    width: 85% !important;
+}
+.form-text{
+    color: red;
+}
+hr{
+    width: 95%;
+    margin-top: -.8rem;
+    color: lightskyblue;;
+    border: 2px solid lightskyblue;
+}
+
+.upper-btn{
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-bottom: 3rem;
+}
+.down-btn{
+     margin-left: 1rem;
+     margin-bottom: 1rem;
+     margin-top: -1rem;
+}
