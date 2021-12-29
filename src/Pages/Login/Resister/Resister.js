@@ -80,14 +80,14 @@ const Resister = () => {
         <div className='cntr'>
             <Container>
                 <Form onSubmit={handleSubmit}>
-                    <p>Sign Up</p>
+                    <p className="text">Sign Up</p>
                     <hr />
 
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Lutfor"
+                            placeholder="Your Name"
                             required
                             name="name"
                             onChange={handleOnChange} />
@@ -97,7 +97,7 @@ const Resister = () => {
                         <Form.Label>Email</Form.Label>
                         <Form.Control
                             type="email"
-                            placeholder="rakhi@example.com"
+                            placeholder="lutfor@example.com"
                             required
                             name="email"
                             onChange={handleOnChange} />
@@ -142,7 +142,10 @@ const Resister = () => {
 
                     <hr />
                     <p>Already signed up?</p>
-                    <Button variant="primary" className='down-btn'>
+                    <Button
+                        variant="primary"
+                        className='down-btn'
+                        onClick={() => navigate('/login')}>
                         <strong>SIGN IN</strong>
                     </Button>
 

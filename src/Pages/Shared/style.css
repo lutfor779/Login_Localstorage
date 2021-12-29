@@ -1,7 +1,7 @@
 .cntr{    
     display: flex;
     align-items: center;
-    min-height: 75vh;
+    min-height: 85vh;
 }
 form{
     margin: 15px auto;
@@ -16,6 +16,10 @@ form input{
 }
 .form-text{
     color: red;
+}
+.text{
+    font-size: 1.3rem;
+    font-weight: 700;
 }
 hr{
     width: 95%;

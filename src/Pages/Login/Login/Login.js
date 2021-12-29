@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import '../../Shared/style.css';
 
 const Login = () => {
@@ -7,10 +9,10 @@ const Login = () => {
     const [emailErr, setEmailErr] = useState(null);
     const [err, setErr] = useState(null);
 
+    const { setLogin, setUser } = useAuth();
+    const navigate = useNavigate();
 
     const userData = JSON.parse(localStorage.getItem('userData'));
-
-
 
     const handleOnChange = e => {
         const field = e.target.name;
@@ -50,14 +52,19 @@ const Login = () => {
             return;
         }
         setErr(null);
+
+        setLogin(true);
+        setUser(exits);
+        navigate('/dashboard');
     }
 
     return (
         <div className='cntr'>
             <Container>
                 <Form onSubmit={handleLoginSubmit}>
-                    <p>Sign In</p>
+                    <p className="text">Sign In</p>
                     <hr />
+
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control
@@ -94,7 +101,10 @@ const Login = () => {
 
                     <hr />
                     <p>New User</p>
-                    <Button variant="primary" className='down-btn'>
+                    <Button
+                        variant="primary"
+                        className='down-btn'
+                        onClick={() => navigate('/resister')}>
                         <strong>SIGN UP</strong>
                     </Button>
 
