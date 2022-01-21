@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
+import React, { useEffect, useState } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navigation = () => {
     const { login, setLogin, user } = useAuth();
@@ -12,16 +12,16 @@ const Navigation = () => {
 
     useEffect(() => {
         if (user) {
-            const data = JSON.parse(localStorage.getItem('userData'));
+            const data = JSON.parse(localStorage.getItem("userData"));
             setUserName(data[user].name);
         }
     }, [user]);
 
     const handleLogOut = () => {
-        localStorage.removeItem('userData');
+        localStorage.removeItem("userData");
         setLogin(false);
-        navigate('/');
-    }
+        navigate("/");
+    };
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">

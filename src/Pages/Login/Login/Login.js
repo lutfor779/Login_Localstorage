@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
-import '../../Shared/style.css';
+import React, { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import "../../Shared/style.css";
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
@@ -12,15 +12,15 @@ const Login = () => {
     const { setLogin, setUser } = useAuth();
     const navigate = useNavigate();
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userData = JSON.parse(localStorage.getItem("userData"));
 
     const handleOnChange = e => {
         const field = e.target.name;
         const value = e.target.value;
 
-        if (field === 'email') {
+        if (field === "email") {
             if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-                setEmailErr('Please provide a valid email address');
+                setEmailErr("Please provide a valid email address");
                 return;
             }
             setEmailErr(null);
@@ -29,34 +29,34 @@ const Login = () => {
         const data = { ...loginData };
         data[field] = value;
         setLoginData(data);
-    }
+    };
 
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         if (!userData) {
-            setErr('Looks like new user! Resister first')
+            setErr("Looks like new user! Resister first");
             return;
         }
         const emails = Object.keys(userData);
         const exits = emails.find(element => element === loginData.email);
 
         if (!exits) {
-            setEmailErr('This email has not found');
+            setEmailErr("This email has not found");
             return;
         }
         setEmailErr(null);
 
         if (userData[exits].password !== loginData.password) {
-            setErr('Password did not match');
+            setErr("Password did not match");
             return;
         }
         setErr(null);
 
         setLogin(true);
         setUser(exits);
-        navigate('/dashboard');
-    }
+        navigate("/dashboard");
+    };
 
     return (
         <div className='cntr'>
@@ -104,7 +104,7 @@ const Login = () => {
                     <Button
                         variant="primary"
                         className='down-btn'
-                        onClick={() => navigate('/resister')}>
+                        onClick={() => navigate("/resister")}>
                         <strong>SIGN UP</strong>
                     </Button>
 
