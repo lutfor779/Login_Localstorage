@@ -6,10 +6,8 @@
 
 ### It clear localStorage with logout
 
-### ESLINT is used for linting.
+# ESLINT is used for linting.
 
 ### Deployment
-
-#### `In minify`
 
 This section has moved here: [https://login-using-localstorage.netlify.app/](https://login-using-localstorage.netlify.app/)
