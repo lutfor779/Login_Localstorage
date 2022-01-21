@@ -1,7 +1,5 @@
-import React, { createContext } from 'react';
-import useLogin from '../hooks/useLogin';
-
-
+import React, { createContext } from "react";
+import useLogin from "../hooks/useLogin";
 
 export const AuthContext = createContext(null);
 

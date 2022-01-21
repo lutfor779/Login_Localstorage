@@ -1,158 +1,155 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Resister = () => {
-    const [userData, setUserData] = useState({});
-    const [resisterData, setResisterData] = useState({});
+  const [userData, setUserData] = useState({});
+  const [resisterData, setResisterData] = useState({});
 
-    const [emailErr, setEmailErr] = useState(null);
-    const [passErr, setPassErr] = useState(null);
-    const [confirmErr, setConfirmErr] = useState(null);
+  const [emailErr, setEmailErr] = useState(null);
+  const [passErr, setPassErr] = useState(null);
+  const [confirmErr, setConfirmErr] = useState(null);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const users = JSON.parse(localStorage.getItem('userData'));
-        users && setUserData(users);
-    }, []);
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem("userData"));
+    users && setUserData(users);
+  }, []);
 
-    const handleOnChange = e => {
-        const field = e.target.name;
-        const value = e.target.value;
+  const handleOnChange = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
 
-        if (field === 'email') {
-            if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-                setEmailErr('Please provide a valid email address');
-                return;
-            }
+    if (field === "email") {
+      if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        setEmailErr("Please provide a valid email address");
+        return;
+      }
 
-            if (userData) {
-                const emails = Object.keys(userData);
-                const exits = emails.find(element => element === value);
-                if (exits) {
-                    setEmailErr('This email has already used');
-                    return;
-                }
-            }
-
-
-            setEmailErr(null);
-
+      if (userData) {
+        const emails = Object.keys(userData);
+        const exits = emails.find((element) => element === value);
+        if (exits) {
+          setEmailErr("This email has already used");
+          return;
         }
+      }
 
-        if (field === "password") {
-            if (value.length < 3) {
-                setPassErr('Password must be at least 3 characters long');
-                return;
-            }
-            setPassErr(null);
-        }
-
-        if (field === 'confirm_password') {
-            if (value !== resisterData?.password) {
-                setConfirmErr('Password did not match');
-                return;
-            }
-            setConfirmErr(null);
-        }
-
-        const data = { ...resisterData };
-        data[field] = value;
-        setResisterData(data);
+      setEmailErr(null);
     }
 
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        userData[resisterData.email] = { name: `${resisterData.name}`, password: `${resisterData.password}` };
-
-        localStorage.setItem('userData', JSON.stringify(userData));
-
-        e.target.reset();
-        navigate('/login');
+    if (field === "password") {
+      if (value.length < 3) {
+        setPassErr("Password must be at least 3 characters long");
+        return;
+      }
+      setPassErr(null);
     }
 
+    if (field === "confirm_password") {
+      if (value !== resisterData?.password) {
+        setConfirmErr("Password did not match");
+        return;
+      }
+      setConfirmErr(null);
+    }
 
+    const data = { ...resisterData };
+    data[field] = value;
+    setResisterData(data);
+  };
 
-    return (
-        <div className='cntr'>
-            <Container>
-                <Form onSubmit={handleSubmit}>
-                    <p className="text">Sign Up</p>
-                    <hr />
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Your Name"
-                            required
-                            name="name"
-                            onChange={handleOnChange} />
-                    </Form.Group>
+    userData[resisterData.email] = {
+      name: `${resisterData.name}`,
+      password: `${resisterData.password}`,
+    };
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            type="email"
-                            placeholder="lutfor@example.com"
-                            required
-                            name="email"
-                            onChange={handleOnChange} />
-                        {
-                            emailErr && <Form.Text>{emailErr}</Form.Text>
-                        }
-                    </Form.Group>
+    localStorage.setItem("userData", JSON.stringify(userData));
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="*******"
-                            required
-                            name="password"
-                            onChange={handleOnChange} />
-                        {
-                            passErr && <Form.Text>{passErr}</Form.Text>
-                        }
-                    </Form.Group>
+    e.target.reset();
+    navigate("/login");
+  };
 
-                    <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="*******"
-                            required
-                            name="confirm_password"
-                            onChange={handleOnChange} />
-                        {
-                            confirmErr && <Form.Text>{confirmErr}</Form.Text>
-                        }
-                    </Form.Group>
+  return (
+    <div className="cntr">
+      <Container>
+        <Form onSubmit={handleSubmit}>
+          <p className="text">Sign Up</p>
+          <hr />
 
-                    <Button
-                        disabled={passErr || emailErr || confirmErr}
-                        variant="primary"
-                        type="submit"
-                        className='upper-btn'>
-                        <strong>SIGN UP</strong>
-                    </Button>
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Your Name"
+              required
+              name="name"
+              onChange={handleOnChange}
+            />
+          </Form.Group>
 
-                    <hr />
-                    <p>Already signed up?</p>
-                    <Button
-                        variant="primary"
-                        className='down-btn'
-                        onClick={() => navigate('/login')}>
-                        <strong>SIGN IN</strong>
-                    </Button>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="lutfor@example.com"
+              required
+              name="email"
+              onChange={handleOnChange}
+            />
+            {emailErr && <Form.Text>{emailErr}</Form.Text>}
+          </Form.Group>
 
-                </Form>
-            </Container>
-        </div>
-    );
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="*******"
+              required
+              name="password"
+              onChange={handleOnChange}
+            />
+            {passErr && <Form.Text>{passErr}</Form.Text>}
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="*******"
+              required
+              name="confirm_password"
+              onChange={handleOnChange}
+            />
+            {confirmErr && <Form.Text>{confirmErr}</Form.Text>}
+          </Form.Group>
+
+          <Button
+            disabled={passErr || emailErr || confirmErr}
+            variant="primary"
+            type="submit"
+            className="upper-btn"
+          >
+            <strong>SIGN UP</strong>
+          </Button>
+
+          <hr />
+          <p>Already signed up?</p>
+          <Button
+            variant="primary"
+            className="down-btn"
+            onClick={() => navigate("/login")}
+          >
+            <strong>SIGN IN</strong>
+          </Button>
+        </Form>
+      </Container>
+    </div>
+  );
 };
 
 export default Resister;
